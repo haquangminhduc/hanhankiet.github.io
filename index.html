@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="index.css">
+    <title>hanhankiet</title>
+</head>
+
+<body>
+    <section>
+        <header class="container">
+            <div class="page-header">
+                <div class="logo">
+                    <a href="#">hanhankiet</a>
+                </div>
+                <input type="checkbox" id="click">
+                <label for="click" class="mainicon">
+                    <div class="menu">
+                        <i class='bx bx-menu'></i>
+                    </div>
+                </label>
+                <label class="mode">
+                    <input type="checkbox" id="darkModeToggle">
+                    <i class='bx bxs-moon'></i>
+                </label>
+            </div>
+        </header>
+    
+        <div class="container">
+            <div class="main">
+                <div class="detail">
+                    <h3>Hi, I'm</h3>
+                    <h1><span style="color:#0155fc;">Hà Nhân</span> Kiệt</h1> 
+                    <p>
+                    </p>  
+                    <div class="social">
+                        <a href="https://www.facebook.com/ha.nhan.kiet.2024" style="--socialAni:1"><i class='bx bxl-facebook'></i></a>
+                        <a href="https://www.instagram.com/kiet_020908/" style="--socialAni:2"><i class='bx bxl-instagram'></i></a>
+                    </div>
+                </div>
+                <div class="images">
+                    <img src="kiet.PNG" alt="" class="img-w">
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="footer-container">
+       
+        <div class="footer-info">
+            <p>@2025 Developed by Hà Quang Minh Đức</p>
+        </div>
+    </div>
+
+    <script>
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
+        if (isDarkMode) {
+            body.classList.add('dark-mode');
+            darkModeToggle.checked = true;
+        }
+        darkModeToggle.addEventListener('change', () => {
+            if (darkModeToggle.checked) {
+                body.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                body.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+    </script>
+</body>
+</html>
