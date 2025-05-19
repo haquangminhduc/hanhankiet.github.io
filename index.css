@@ -380,3 +380,21 @@ li a:hover {
             "detail"; /* Stack vertically on small screens */
     }
 }
+
+
+/* Thêm vào cuối file index.css */
+.more-info-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 1rem;
+    background-color: #0155fc; /* Màu xanh tương đồng với logo */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.more-info-btn:hover {
+    background-color: #0133cc; /* Màu đậm hơn khi hover */
+}
