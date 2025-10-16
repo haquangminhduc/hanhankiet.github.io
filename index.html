@@ -1,77 +1,95 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="index.css">
-    <title>hanhankiet</title>
-</head>
-
 <body>
-    <section>
-        <header class="container">
-            <div class="page-header">
-                <div class="logo">
-                    <a href="#">hanhankiet</a>
-                </div>
-                <input type="checkbox" id="click">
-                <label for="click" class="mainicon">
-                    <div class="menu">
-                        <i class='bx bx-menu'></i>
-                    </div>
-                </label>
-                <label class="mode">
-                    <input type="checkbox" id="darkModeToggle">
-                    <i class='bx bxs-moon'></i>
-                </label>
-            </div>
-        </header>
-    
-        <div class="container">
-            <div class="main">
-                <div class="detail">
-                    <h3>Hi, I'm</h3>
-                    <h1><span style="color:#0155fc;">Hà Nhân</span> Kiệt</h1> 
-                    <p>
-                    </p>  
-                    <div class="social">
-                        <a href="https://www.facebook.com/ha.nhan.kiet.2024" style="--socialAni:1"><i class='bx bxl-facebook'></i></a>
-                        <a href="https://www.instagram.com/kiet_020908/" style="--socialAni:2"><i class='bx bxl-instagram'></i></a>
-                    </div>
-                    <a href="about.html" class="more-info-btn">More Info</a>
-                </div>
-                <div class="images">
-                    <img src="kiet.PNG" alt="" class="img-w">
-                </div>
-            </div>
-        </div>
-    </section>
-    <div class="footer-container">
-        <div class="footer-info">
-            <p>@2025 Developed by Hà Quang Minh Đức</p>
-        </div>
-    </div>
+  <!-- Giữ nguyên mọi nội dung sẵn có của mày -->
+  <canvas id="petals" aria-hidden="true"></canvas>
+  <!-- ... phần còn lại của trang của mày ... -->
 
-    <script>
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        const body = document.body;
-        const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
-        if (isDarkMode) {
-            body.classList.add('dark-mode');
-            darkModeToggle.checked = true;
-        }
-        darkModeToggle.addEventListener('change', () => {
-            if (darkModeToggle.checked) {
-                body.classList.add('dark-mode');
-                localStorage.setItem('darkMode', 'enabled');
-            } else {
-                body.classList.remove('dark-mode');
-                localStorage.setItem('darkMode', 'disabled');
-            }
-        });
-    </script>
+  <!-- ===== Styles “áo mới” (KHÔNG đổi chữ) ===== -->
+  <style>
+    :root{
+      --bg:#0b111a; --bg2:#0f1520; --text:#eaf0ff; --muted:#b6c0d4;
+      --brand:#4da3ff; --brand2:#8a5cff; --ring1:#5b7dff; --ring2:#ff7bd2;
+      --card:rgba(255,255,255,.06); --bd:rgba(255,255,255,.12);
+      --shadow:0 24px 60px rgba(0,0,0,.35);
+    }
+    /* Nền tối gradient như ảnh */
+    body{
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 12% 0%, #0f2849 0%, transparent 60%),
+        radial-gradient(1200px 700px at 90% 5%, #1a0f36 0%, transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      overflow-x:hidden;
+    }
+    /* Card, nút, icon nhìn “mượt” */
+    .btn, .more-info-btn, .btn-link{
+      appearance:none; border:1px solid transparent; border-radius:12px;
+      padding:12px 16px; font-weight:700; cursor:pointer; text-decoration:none;
+      background:linear-gradient(135deg,var(--brand),var(--brand2)); color:#fff;
+      box-shadow:var(--shadow); transition:transform .15s ease, filter .2s ease;
+    }
+    .btn:hover, .more-info-btn:hover, .btn-link:hover{transform:translateY(-2px);filter:brightness(1.05)}
+    .social a{
+      display:grid; place-items:center; width:44px; height:44px; border-radius:999px;
+      border:1px solid var(--bd); background:var(--card); color:var(--text);
+      text-decoration:none; transition:transform .15s ease, filter .2s ease;
+    }
+    .social a:hover{transform:translateY(-2px);filter:brightness(1.1)}
+
+    /* Tiêu đề đổ màu xanh–tím, KHÔNG đổi nội dung */
+    .detail h1, .name, h1{
+      background:linear-gradient(90deg,#5aa8ff 10%, #a07bff 60%);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      font-weight:800;
+    }
+
+    /* Avatar tròn, viền 2 lớp; áp vào .images .img-w hoặc ảnh profile mày đang dùng */
+    .images{display:grid;place-items:center}
+    .images .img-w, .avatar img, img.avatar{
+      border-radius:50%; object-fit:cover; display:block; background:#111;
+      box-shadow:0 10px 28px rgba(0,0,0,.35);
+    }
+    /* Vòng ngoài */
+    .images{position:relative; width:min(360px,80vw); aspect-ratio:1/1; margin:auto}
+    .images::before,.images::after{content:""; position:absolute; inset:0; border-radius:50%}
+    .images::before{
+      padding:3px; background:conic-gradient(var(--ring1), var(--ring2), var(--ring1));
+      -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite:xor; mask-composite:exclude;
+    }
+    .images::after{inset:10px; padding:2px; opacity:.85;
+      background:conic-gradient(#6480ff,#d289ff,#6480ff);
+      -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite:xor; mask-composite:exclude;
+    }
+    .images .img-w{position:absolute; inset:14px; width:auto; height:auto; width:calc(100% - 28px); height:calc(100% - 28px)}
+    
+    /* Phần title/logo/header hiện có: chỉ làm dịu */
+    header, .page-header, .profile-card, .card {
+      background:var(--card); border:1px solid var(--bd);
+      border-radius:18px; box-shadow:var(--shadow);
+      backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+    }
+  </style>
+
+  <!-- ===== Canvas hoa rơi: KHÔNG đụng chữ, chỉ hiệu ứng nền ===== -->
+  <script>
+    const cvs = document.getElementById('petals'); const ctx = cvs.getContext('2d',{alpha:true});
+    let W,H, petals=[], last=0;
+    function fit(){ const dpr=Math.min(devicePixelRatio||1,2); W=cvs.width=innerWidth*dpr; H=cvs.height=innerHeight*dpr;
+      cvs.style.width=innerWidth+'px'; cvs.style.height=innerHeight+'px'; ctx.setTransform(dpr,0,0,dpr,0,0); spawn(); }
+    function spawn(){ const n=Math.floor(Math.min(innerWidth,1600)/26);
+      petals = new Array(n).fill(0).map(()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,z:.6+Math.random()*.8,r:Math.random()*6.28,rv:(Math.random()*.02+.01)*(Math.random()<.5?-1:1),vy:.6+Math.random()*.9,sway:30+Math.random()*50,h:330+Math.random()*12}));
+    }
+    function draw(x,y,s,rot,h){ ctx.save(); ctx.translate(x,y); ctx.rotate(rot); ctx.scale(s,s);
+      const g=ctx.createRadialGradient(0,0,0,0,0,18);
+      g.addColorStop(0,`hsla(${h},85%,95%,.95)`); g.addColorStop(.6,`hsla(${h},85%,85%,.88)`); g.addColorStop(1,`hsla(${h},85%,80%,0)`);
+      ctx.fillStyle=g; ctx.beginPath(); ctx.moveTo(0,-6); ctx.bezierCurveTo(12,-12,14,8,0,18); ctx.bezierCurveTo(-14,8,-12,-12,0,-6);
+      ctx.closePath(); ctx.fill(); ctx.restore();
+    }
+    function tick(t){ const dt=Math.min(32,t-last); last=t; ctx.clearRect(0,0,innerWidth,innerHeight);
+      petals.forEach(p=>{ p.y+=p.vy*p.z*dt/16; p.x+=Math.sin((p.y+p.sway)*.01)*.7*p.z; p.r+=p.rv*dt; if(p.y>innerHeight+24){p.y=-24; p.x=Math.random()*innerWidth;} draw(p.x,p.y,.6+p.z*.7,p.r,p.h);});
+      requestAnimationFrame(tick);
+    }
+    addEventListener('resize', fit, {passive:true}); fit(); requestAnimationFrame(tick);
+  </script>
 </body>
-</html>
